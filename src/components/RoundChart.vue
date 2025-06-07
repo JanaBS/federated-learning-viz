@@ -30,7 +30,9 @@ export default {
     drawChart() {
       const rawData = this.participationData;
 
-      const rounds = [...new Set(rawData.map(d => d.round_number))].sort((a, b) => a - b);
+const rounds = [...new Set(
+      rawData.map(d => d.round_number)
+    )].sort((a, b) => a - b);
       const clients = [
         "server",
         ...[...new Set(rawData.filter(d => d.type === "client").map(d => d.client_id))]
