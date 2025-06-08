@@ -13,6 +13,9 @@ app.use('/api/clientRounds', clientRoundsRoute);
 const summaryViewRoute = require('./routes/summary_view');
 app.use('/api/summary', summaryViewRoute);
 
+const trainingTimesRouter = require('./routes/training_times');
+app.use('/api/trainingTimes', trainingTimesRouter);
+
 
 // iniciar servidor
 app.listen(PORT, () => {

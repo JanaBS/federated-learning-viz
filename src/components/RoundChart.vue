@@ -28,6 +28,7 @@ export default {
   },
   methods: {
     drawChart() {
+      console.log(this.participationData)
       const rawData = this.participationData;
 
 const rounds = [...new Set(

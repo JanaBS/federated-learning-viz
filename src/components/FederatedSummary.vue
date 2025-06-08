@@ -59,7 +59,6 @@ import { formatMonetData } from '@/utils';
         fetch(url)
           .then(res => res.json())
           .then(raw => {
-            console.log(raw)
             const data = formatMonetData(raw);
             this.summary = data[0];
             console.log(this.summary)

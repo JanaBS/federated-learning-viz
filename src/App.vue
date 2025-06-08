@@ -9,16 +9,20 @@
     <div class="chart-card">
       <RoundChart @updateSelection="updateSelection" /> 
     </div>
+        <div class="chart-card">
+      <DurationChart @updateSelection="updateSelection" /> 
+    </div>
   </div>
 </template>
 
 <script>
 import RoundChart from './components/RoundChart.vue'
 import FederatedSummary from './components/FederatedSummary.vue'
+import DurationChart from './components/DurationChart.vue'
 
 export default {
   name: 'App',
-  components: { RoundChart, FederatedSummary },
+  components: { RoundChart, FederatedSummary, DurationChart },
   data() {
     return {
       selectedClients: [],
