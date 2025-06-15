@@ -75,6 +75,7 @@ import { formatMonetData } from '@/utils';
   .summary-box {
     background-color: #fff;
     padding: 16px;
+    min-width: 200px;
     border: 1px solid #ddd;
     font-family: 'Segoe UI', sans-serif;
     font-size: 14px;

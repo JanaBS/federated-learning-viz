@@ -1,5 +1,5 @@
 <template>
-  <div ref="chartContainer" class="duration-chart"></div>
+  <div ref="chartContainer" class="chart-scroll-container"></div>
 </template>
 
 <script>
@@ -25,13 +25,12 @@ export default {
   },
   methods: {
     drawChart() {
-    console.log(this.durationData)
       const rawData = this.durationData;
       const rounds = [...new Set(rawData.map(d => d.round))].sort((a, b) => a - b);
       const margin = { top: 40, right: 40, bottom: 40, left: 100 };
       const nodeRadius = 4.5;
       const totalWidth = 700;
-      const totalHeight = margin.top + margin.bottom + rounds.length * 28;
+      const totalHeight = margin.top + margin.bottom + rounds.length * 40;
       const width = totalWidth;
       const height = totalHeight;
 
@@ -51,23 +50,28 @@ export default {
         .padding(0.3);
 
       rounds.forEach(round => {
-        const y = yScale(round) - 10;
+        const y = yScale(round) - 15;
         svg.append("rect")
           .attr("x", margin.left - 10)
           .attr("y", y)
           .attr("width", totalWidth - margin.left)
-          .attr("height", 20)
+          .attr("height", 30)
           .attr("fill", "#fff")
           .attr("stroke", "#000")
           .attr("stroke-width", 0.5);
       });
 
+      const groupedByDuration = d3.group(rawData, d => `${d.round}-${d.duration}`);
       svg.selectAll(".duration-dot")
         .data(rawData)
         .enter()
         .append("circle")
         .attr("cx", d => xScale(d.duration))
-        .attr("cy", d => yScale(d.round))
+        .attr("cy", d => {
+          const groupKey = `${d.round}-${d.duration}`;
+          const indexInGroup = groupedByDuration.get(groupKey).findIndex(item => item === d);
+          return yScale(d.round) - indexInGroup * (nodeRadius * 2 + 2);
+        })
         .attr("r", nodeRadius)
         .attr("fill", "#4682B4")
         .attr("stroke", "black")
@@ -85,12 +89,20 @@ export default {
         .attr("font-size", 11)
         .attr("font-family", "serif")
         .attr("fill", "#333");
+      
+      const xAxis = d3.axisBottom(xScale)
+      .ticks(5) 
+      .tickFormat(d => `${d} s`);
+
+      svg.append("g")
+        .attr("transform", `translate(0, ${totalHeight - margin.bottom + 5})`)
+        .call(xAxis);
     }
   }
 };
 </script>
 
-<style scoped>
+<style>
 .chart-scroll-container {
   max-height: 300px;
   max-width: 700px;

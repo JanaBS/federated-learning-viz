@@ -48,8 +48,8 @@ const rounds = [...new Set(
 
       const margin = { top: 40, right: 40, bottom: 40, left: 100 };
       const nodeRadius = 4.5;
-      const totalWidth = margin.left + margin.right + clients.length * 28;
-      const totalHeight = margin.top + margin.bottom + rounds.length * 28;
+      const totalWidth = 700;
+      const totalHeight = margin.top + margin.bottom + rounds.length * 40;
       const width = totalWidth;
       const height = totalHeight;
 
@@ -71,12 +71,12 @@ const rounds = [...new Set(
 
       // Retângulos horizontais por round
       rounds.forEach(round => {
-        const y = yScale(round) - 10;
+        const y = yScale(round) - 15;
         svg.append("rect")
           .attr("x", margin.left - 10)
           .attr("y", y)
           .attr("width", totalWidth - margin.left)
-          .attr("height", 20)
+          .attr("height", 30)
           .attr("fill", "#fff")
           .attr("stroke", "#000")
           .attr("stroke-width", 0.5);
@@ -190,7 +190,7 @@ const rounds = [...new Set(
 
 <style>
 .chart-scroll-container {
-  max-height: 300px;
+  max-height: 350px;
   max-width: 700px;
   overflow: auto;
   border: 1px solid #ccc;
